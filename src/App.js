@@ -1,10 +1,17 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import Form from './components/Form';
 
 function App() {
+
+  /** Hook: Define State */
+  const 
+    [ searchSongLyrics, setSearchSongLyrics ] = useState({});
+
   return (
     <Fragment>
-      <Form />
+      <Form
+        setSearchSongLyrics={ setSearchSongLyrics }
+      />
     </Fragment>
   );
 }

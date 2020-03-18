@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Form = () => {
+const Form = ({ setSearchSongLyrics }) => {     // Destructuring Props
 
     /** Hook: Define State */
     const
@@ -32,7 +32,8 @@ const Form = () => {
         setError( false );
 
         /** Send data to the main Component */
-
+        setSearchSongLyrics( searchTerms );
+        
     }
 
     return (
