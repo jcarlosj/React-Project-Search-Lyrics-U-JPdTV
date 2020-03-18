@@ -3,6 +3,7 @@ import React, { Fragment, useState, useEffect } from 'react';
 /** Components */
 import Form from './components/Form';
 import ShowLyrics from './components/ShowLyrics';
+import ShowBioArtists from './components/ShowBioArtists';
 
 function App() {
 
@@ -61,9 +62,19 @@ function App() {
         setSearchSongLyrics={ setSearchSongLyrics }
       />
 
-      <ShowLyrics 
-        lyrics={ lyrics }
-      />
+      <div className="container">
+        <div className="row">
+          <div className="col col-md-6">
+            <ShowBioArtists />
+          </div>
+          <div className="col col-md-6">
+            <ShowLyrics 
+              lyrics={ lyrics }
+            />
+          </div>
+        </div>
+      </div>
+
     </Fragment>
   );
 }
