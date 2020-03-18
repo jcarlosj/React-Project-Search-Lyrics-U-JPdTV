@@ -9,7 +9,8 @@ function App() {
   /** Hook: Define State */
   const 
     [ searchSongLyrics, setSearchSongLyrics ] = useState( {} ),
-    [ lyrics, setLyrics ] = useState( '' );
+    [ lyrics, setLyrics ] = useState( '' ),
+    [ artist, setArtist ] = useState( {} );
 
   /** Hook: Traking State 'searchTerms' */
   useEffect( () => {
@@ -21,15 +22,33 @@ function App() {
           return;
         }
 
-        const 
-          { artist, track } = searchSongLyrics,                       // Destructuring State
+        const { artist, track } = searchSongLyrics;   // Destructuring State 'searchSongLyrics'
 
-          url = `https://api.lyrics.ovh/v1/${ artist }/${ track }`,
-          resolve = await fetch( url ),
-          data = await resolve .json();
+        const   /** Multiple Requests with Promise.all & async/await */
+          [ responseLyric, responseArtist ] = await Promise .all([
+            await fetch(`https://api.lyrics.ovh/v1/${ artist }/${ track }`),
+            await fetch(`https://www.theaudiodb.com/api/v1/json/1/search.php?s=${ artist }`)
+          ]); 
 
-        console .log( 'lyricsovh', data );
-        setLyrics( data .lyrics );      // Update State 'lyrics'
+          /** Validate */
+          if( responseLyric .status == '404' ) {
+            console .log( 'Error API Lyrics.ovh' );
+            return;
+          }
+          if( responseArtist .status == '404' ) {
+            console .log( 'Error API TheAudioDB' );
+            return;
+          }
+
+          const 
+            dataLyric = await responseLyric .json(),
+            dataArtist = await responseArtist .json();
+
+        console .log( 'Lyric', dataLyric, 'Artist', dataArtist );
+        
+        /** Update State */
+        setLyrics( dataLyric .lyrics );         // State 'lyrics'
+        setArtist( dataArtist .artists[ 0 ] );  // State 'artist'
 
     }
     getDataApiLyrics();
