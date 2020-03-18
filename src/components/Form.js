@@ -1,6 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const Form = () => {
+
+    /** Hook: Define State */
+    const
+        [ searchTerms, setSearchTerms ] = useState({
+            artist: '',
+            track: ''
+        });
+
+    const { artist, track } = searchTerms;      // Destructuring State
+
+    /** Update State when you change the value of the field in the form  */
+    const updateState = event => {
+        setSearchTerms({
+            ...searchTerms,
+            [ event .target .name ]: event .target .value
+        });
+    }
+
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
         
@@ -17,12 +35,16 @@ const Form = () => {
                         name="artist"
                         placeholder="Nombre Artísta" 
                         className="form-control mr-sm-2" 
+                        value={ artist }
+                        onChange={ updateState }
                     />
                     <input 
                         type="text" 
                         name="track"
                         placeholder="Nombre de la canción" 
                         className="form-control mr-sm-2" 
+                        value={ track }
+                        onChange={ updateState }
                     />
                     <button 
                         type="button"
