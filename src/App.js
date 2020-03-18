@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import Form from './components/Form';
 
 function App() {
   return (
-    <h1>Búsqueda de letras de canciones.</h1>
+    <Fragment>
+      <h1>Búsqueda de letras de canciones.</h1>
+      <Form />
+    </Fragment>
   );
 }
 
