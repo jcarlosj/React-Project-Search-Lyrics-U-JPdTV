@@ -20,6 +20,9 @@ code {
 .form-control {
   margin: .2rem 0;
 }
+.lyrics {
+  white-space: pre-wrap;
+}
 
 @media( min-width: 484px ) {
   .alert-custom {

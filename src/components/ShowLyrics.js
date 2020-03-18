@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
-const ShowLyrics = () => {
+const ShowLyrics = ({ lyrics }) => {    // Destructuring Props
+
+    /** Validate */
+    if( lyrics .length === 0 )  return null;
+
     return (
-        <h2>Letra de la Cancion</h2>
+        <Fragment>
+            <h2>Letra de la Cancion</h2>
+            <p className="lyrics">{ lyrics }</p>
+        </Fragment>
     );
 }
 

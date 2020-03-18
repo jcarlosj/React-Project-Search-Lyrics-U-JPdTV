@@ -41,7 +41,10 @@ function App() {
       <Form
         setSearchSongLyrics={ setSearchSongLyrics }
       />
-      <ShowLyrics />
+
+      <ShowLyrics 
+        lyrics={ lyrics }
+      />
     </Fragment>
   );
 }
