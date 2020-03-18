@@ -1,5 +1,8 @@
 import React, { Fragment, useState, useEffect } from 'react';
+
+/** Components */
 import Form from './components/Form';
+import ShowLyrics from './components/ShowLyrics';
 
 function App() {
 
@@ -27,7 +30,7 @@ function App() {
 
         console .log( 'lyricsovh', data );
         setLyrics( data .lyrics );      // Update State 'lyrics'
-        
+
     }
     getDataApiLyrics();
 
@@ -38,6 +41,7 @@ function App() {
       <Form
         setSearchSongLyrics={ setSearchSongLyrics }
       />
+      <ShowLyrics />
     </Fragment>
   );
 }
