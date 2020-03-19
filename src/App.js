@@ -54,7 +54,7 @@ function App() {
     }
     getDataApiLyrics();
 
-  }, [ searchSongLyrics ] );
+  }, [ searchSongLyrics, artist ] );
 
   return (
     <Fragment>
@@ -63,13 +63,16 @@ function App() {
       />
 
       <div className="container">
-        <div className="row">
-          <div className="col col-md-6">
-            <ShowBioArtists />
-          </div>
-          <div className="col col-md-6">
+        <div className="row mt-5 mb-5">
+          <div className="col col-md-4">
             <ShowLyrics 
               lyrics={ lyrics }
+              title={ searchSongLyrics .track }
+            />
+          </div>
+          <div className="col col-md-8">
+            <ShowBioArtists 
+              artist={ artist }
             />
           </div>
         </div>
