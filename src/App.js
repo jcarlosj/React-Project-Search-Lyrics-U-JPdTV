@@ -11,7 +11,9 @@ function App() {
   const 
     [ searchSongLyrics, setSearchSongLyrics ] = useState( {} ),
     [ lyrics, setLyrics ] = useState( '' ),
-    [ artist, setArtist ] = useState( {} );
+    [ artist, setArtist ] = useState( {} ),
+    [ errorLyrics, setErrorLyrics ] = useState( false ),
+    [ errorArtist, setErrorArtist ] = useState( false );
 
   /** Hook: Traking State 'searchTerms' */
   useEffect( () => {
@@ -23,6 +25,9 @@ function App() {
           return;
         }
 
+        setLyrics( '' );  // State 'lyrics'
+        setArtist( {} );  // State 'artist'
+
         const { artist, track } = searchSongLyrics;   // Destructuring State 'searchSongLyrics'
 
         const   /** Multiple Requests with Promise.all & async/await */
@@ -31,11 +36,17 @@ function App() {
             await fetch(`https://www.theaudiodb.com/api/v1/json/1/search.php?s=${ artist }`)
           ]); 
 
-          /** Validate */
+          /** Validate that you have not obtained API data */
           if( responseLyric .status == '404' ) {
+            setErrorLyrics( true );
+            setArtist( '' );
             console .log( 'Error API Lyrics.ovh' );
-            return;
           }
+          else {
+            setErrorLyrics( false );
+            setLyrics( dataLyric .lyrics );         // State 'lyrics'
+          }
+
           if( responseArtist .status == '404' ) {
             console .log( 'Error API TheAudioDB' );
             return;
@@ -45,24 +56,39 @@ function App() {
             dataLyric = await responseLyric .json(),
             dataArtist = await responseArtist .json();
 
-        console .log( 'Lyric', dataLyric, 'Artist', dataArtist );
-        
-        /** Update State */
-        setLyrics( dataLyric .lyrics );         // State 'lyrics'
-        setArtist( dataArtist .artists[ 0 ] );  // State 'artist'
+        /** Validate that you have not obtained API data */
+        if ( dataArtist .artists === null ) {
+          setErrorArtist( true );
+          setArtist( {} );  // State 'artist'
+        }
+        else {
+          setErrorArtist( false );
+          setArtist( dataArtist .artists[ 0 ] );  // State 'artist'
+        }
 
     }
     getDataApiLyrics();
 
-  }, [ searchSongLyrics, artist ] );
+  }, [ searchSongLyrics ] );
 
   return (
     <Fragment>
       <Form
         setSearchSongLyrics={ setSearchSongLyrics }
       />
-
       <div className="container">
+      { errorArtist
+          ?   <div className="alert alert-danger m-5" role="alert">
+                  No hay datos biograficos del artista disponibles
+              </div>
+          :   null
+      }
+      { errorLyrics
+          ?   <div className="alert alert-danger m-5" role="alert">
+                  No hay datos disponibles sobre la canción consultada
+              </div>
+          :   null
+      }
         <div className="row mt-5 mb-5">
           <div className="col col-md-4">
             <ShowLyrics 
