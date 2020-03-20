@@ -1,3 +1,9 @@
+# Search Lyrics
+
+Este proyecto consume las APIs https://lyrics.ovh/ y https://www.theaudiodb.com/ a través de la cual podemos consultar letras de canciones por nombre y artista para la primera y biografía del artista para la segunda de acuerdo a los términos de búsqueda proporcionados a través del formulario.
+
+La funcionalidad se desarrolla haciendo uso de conceptos como Components (Carga Condicional), Props, State, Hook (useState, useEffect), Multi Peticiones Asincronas usando Async/Await. (v.16.12.0).
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
