@@ -42,11 +42,6 @@ function App() {
             setArtist( '' );
             console .log( 'Error API Lyrics.ovh' );
           }
-          else {
-            setErrorLyrics( false );
-            setLyrics( dataLyric .lyrics );         // State 'lyrics'
-          }
-
           if( responseArtist .status == '404' ) {
             console .log( 'Error API TheAudioDB' );
             return;
@@ -65,6 +60,9 @@ function App() {
           setErrorArtist( false );
           setArtist( dataArtist .artists[ 0 ] );  // State 'artist'
         }
+
+        setErrorLyrics( false );
+        setLyrics( dataLyric .lyrics );         // State 'lyrics'
 
     }
     getDataApiLyrics();

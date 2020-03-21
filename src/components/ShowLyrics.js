@@ -2,8 +2,8 @@ import React, { Fragment } from 'react';
 
 const ShowLyrics = ({ lyrics, title }) => {    // Destructuring Props
 
-    /** Validate */
-    if( lyrics .length === 0 )  return null;
+    /** Validate */    
+    if( ! lyrics )  return null;
 
     return (
         <Fragment>
